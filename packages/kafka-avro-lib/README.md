@@ -1,4 +1,4 @@
-# kafka-lib
+# kafka-avro-lib
 ## Description
 This is a helper lib that leverages [kafkajs](https://github.com/tulios/kafkajs) to give you  
 some conveniance wrappers for producing and decoding Avro messages.
