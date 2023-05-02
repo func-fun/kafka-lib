@@ -1,0 +1,35 @@
+
+name: Node.js Package
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: read
+      packages: write 
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: ''
+      - name: configure yarn
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo -en "\"npmAuthToken\": \"$GITHUB_TOKEN\"\n\"npmPublishRegistry\": \"https://npm.pkg.github.com\"" >> ~/.yarnrc.yml && cat ~/.yarnrc.yml
+      - name: upgrade yarn
+        run: yarn set version stable
+      - run: yarn plugin import workspace-tools
+      - run: yarn workspaces focus --production
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+      - run: yarn workspaces foreach --exclude kafka-lib npm publish
