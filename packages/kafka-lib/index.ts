@@ -207,9 +207,13 @@ class AvroProducer {
     }
 
     private getTopicAvroSettings(topicName: string): TopicAvroSettings {
-        const selectedSetting =  this.topicAvroSettings.find(setting => setting.topicName === topicName)
-        if (selectedSetting) return selectedSetting;
-        throw `No avro settings for topic: ${topicName}`;
+        const selectedSetting =  this.topicAvroSettings.find(setting => setting.topicName === topicName);
+
+        if (undefined === selectedSetting) {
+            throw `No avro settings for topic: ${topicName}`;
+        }
+
+        return selectedSetting;
     }
 
 }
@@ -217,7 +221,11 @@ class AvroProducer {
 class KafkaMessageHeaders {
     public static getHeaderValue(headers: MessageHeaders[], header: HeaderNames|string): string | null {
         const selected = headers.find(h => header in h );
-        if (!selected) return null;
+        
+        if (undefined === selected) {
+            return null;
+        }
+
         return Buffer.from(selected[header]).toString()
     }
 }

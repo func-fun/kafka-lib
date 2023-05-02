@@ -14,7 +14,7 @@ export interface TopicAvroSettings {
 export type MessageHeaders = { [key in HeaderNames]?: string } | { [key: string]: any };
 
 export class KafkaMessageHeaders {
-    public getHeaderValue(headers: MessageHeaders, header: HeaderNames): string | null;
+    public static getHeaderValue(headers: MessageHeaders, header: HeaderNames): string | null;
 }
 
 export class AvroDecoder {
