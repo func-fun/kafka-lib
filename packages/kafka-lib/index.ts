@@ -207,28 +207,26 @@ class AvroProducer {
     }
 
     private getTopicAvroSettings(topicName: string): TopicAvroSettings {
-        let i, len;
+        const selectedSetting =  this.topicAvroSettings.find(setting => setting.topicName === topicName);
 
-        for (i = 0, len = this.topicAvroSettings.length; i < len; i++) {
-            if (topicName === this.topicAvroSettings[i].topicName) {
-                return this.topicAvroSettings[i];
-            }
+        if (undefined === selectedSetting) {
+            throw `No avro settings for topic: ${topicName}`;
         }
 
-        throw `No avro settings for topic: ${topicName}`;
+        return selectedSetting;
     }
 
 }
 
 class KafkaMessageHeaders {
-    public getHeaderValue(headers: MessageHeaders[], header: HeaderNames|string): string | null {
-        for (let i = 0; i < headers.length; i++) {
-            if (header in headers[i]) {
-                return Buffer.from(headers[i][header]).toString();
-            }
+    public static getHeaderValue(headers: MessageHeaders[], header: HeaderNames|string): string | null {
+        const selected = headers.find(h => header in h );
+        
+        if (undefined === selected) {
+            return null;
         }
 
-        return null;
+        return Buffer.from(selected[header]).toString()
     }
 }
 
