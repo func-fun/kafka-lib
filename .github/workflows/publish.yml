@@ -25,7 +25,7 @@ jobs:
         env:
           REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         run: |
-          echo -en "\"_authToken\": \"$REGISTRY_TOKEN\"" >> ~/.npmrc
+          echo -en "\"npmAuthToken\": \"$REGISTRY_TOKEN\"\n\"npmPublishRegistry\": \"https://registry.npmjs.org\"" >> ~/.yarnrc.yml
       - name: upgrade yarn
         run: yarn set version stable
       - run: yarn plugin import workspace-tools
