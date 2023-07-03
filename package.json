@@ -1,6 +1,6 @@
 {
     "name": "kafka-lib",
-    "private": false,
+    "private": true,
     "workspaces": [
         "packages/*"
     ]
