@@ -11,3 +11,6 @@
 
 # ESLint
 .eslintcache
+
+# jest
+**/coverage
