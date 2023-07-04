@@ -7,7 +7,7 @@ permissions:
   packages: write
 
 jobs:
-  test:
+  lint-test:
     runs-on: ubuntu-latest 
     permissions: 
       contents: write
@@ -19,11 +19,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: ''
       - run: yarn set version stable
-      - run: yarn install
+      - run: yarn install --no-lockfile
       - run: yarn jest
+      - run: npx eslint packages
   publish:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: test
+    needs: lint-test
     runs-on: ubuntu-latest 
     permissions: 
       contents: read
