@@ -18,6 +18,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
           scope: ''
+      - run: yarn set version stable
       - run: yarn install
       - run: yarn jest
   publish:
