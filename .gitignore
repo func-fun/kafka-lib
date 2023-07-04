@@ -1,7 +1,6 @@
 # package related things
 **/node_modules
 .yarnrc
-.yarnrc.yml
 .yarn/
 .pnp.*
 
