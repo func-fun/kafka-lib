@@ -46,4 +46,4 @@ jobs:
       - run: yarn workspaces focus --production
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      - run: yarn workspaces foreach --exclude kafka-lib npm publish --access public
+      - run: yarn workspaces foreach --exclude kafka-lib npm publish --access public --tag beta
