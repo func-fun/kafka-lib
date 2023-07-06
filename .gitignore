@@ -1,9 +1,8 @@
 # package related things
 **/node_modules
-**/yarn.lock
 .yarnrc
-.yarnrc.yml
-.yarn/
+.yarn/*
+!.yarn/releases
 .pnp.*
 
 #ide
@@ -11,3 +10,6 @@
 
 # ESLint
 .eslintcache
+
+# jest
+**/coverage
