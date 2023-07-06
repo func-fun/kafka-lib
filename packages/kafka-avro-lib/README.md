@@ -1,10 +1,14 @@
 # kafka-avro-lib
+
 ## Description
+
 This is a helper lib that leverages [kafkajs](https://github.com/tulios/kafkajs) to give you  
 some conveniance wrappers for producing and decoding Avro messages.
 
 ### AvroProducer
+
 Example for avro producer
+
 ```
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry';
 import { Kafka, CompressionTypes } from 'kafkajs';
@@ -62,7 +66,9 @@ await avroProducer.disconnect();
 ```
 
 ## AvroDecoder
+
 Example on how to:
+
 ```
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry';
 import { Agent } from 'https';
@@ -81,13 +87,13 @@ const schemaRegistry = new SchemaRegistry(
 );
 
 // Loop over some kafka messages (e.g. in a lambda triggered by Kafka)
-for (let idx in event.records) {    
+for (let idx in event.records) {
     for (const [index, record] of event.records[idx].entries()) {
         try {
             let [key, payload] = await avroDecoder.decodeMessage(record.key, record.value);
-            
+
             //do some stuff with payload
-            
+
             console.log('Successfully persisted record:', key);
         } catch(exception) {
             console.error('Processing failed:', exception);

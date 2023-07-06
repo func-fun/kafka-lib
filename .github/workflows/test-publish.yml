@@ -1,15 +1,31 @@
 
 name: Node.js Package
-on:
-  push:
-    branches: [main]
+on: push
 
 permissions:
   contents: read
   packages: write
 
 jobs:
-  build:
+  lint-test:
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: ''
+      - run: yarn install
+      - name: Run tests for kafka-avro-lib
+        run: yarn jest
+        working-directory: packages/kafka-avro-lib
+      - run: npx eslint packages
+  publish:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: lint-test
     runs-on: ubuntu-latest 
     permissions: 
       contents: read
@@ -26,10 +42,8 @@ jobs:
           REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         run: |
           echo -en "\"npmAuthToken\": \"$REGISTRY_TOKEN\"\n\"npmPublishRegistry\": \"https://registry.npmjs.org\"" >> ~/.yarnrc.yml
-      - name: upgrade yarn
-        run: yarn set version stable
       - run: yarn plugin import workspace-tools
       - run: yarn workspaces focus --production
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      - run: yarn workspaces foreach --exclude kafka-lib npm publish --access public
+      - run: yarn workspaces foreach --exclude kafka-lib npm publish --access public --tag beta

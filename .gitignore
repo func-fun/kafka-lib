@@ -1,8 +1,15 @@
+# package related things
 **/node_modules
-**/yarn.lock
 .yarnrc
-.yarnrc.yml
-.yarn/
-.pnp.cjs
-composer.lock
-vendor
+.yarn/*
+!.yarn/releases
+.pnp.*
+
+#ide
+.idea
+
+# ESLint
+.eslintcache
+
+# jest
+**/coverage
