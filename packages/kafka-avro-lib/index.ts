@@ -1,5 +1,15 @@
 import { AvroDecoder } from './avroDecoder';
 import { AvroProducer } from './avroProducer';
 import { getMessageHeaderValue } from './utils';
+import { Action, HeaderNames, MessageHeaders, MessagePayload, TopicAvroSettings } from './types';
 
-export { AvroProducer, AvroDecoder, getMessageHeaderValue };
+export {
+  Action,
+  AvroProducer,
+  AvroDecoder,
+  HeaderNames,
+  getMessageHeaderValue,
+  MessageHeaders,
+  MessagePayload,
+  TopicAvroSettings,
+};
