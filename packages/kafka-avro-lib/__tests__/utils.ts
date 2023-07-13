@@ -2,8 +2,8 @@ import { HeaderNames, MessageHeaders } from '../types';
 import { getMessageHeaderValue } from '../utils';
 
 describe('getHeaderValue', () => {
-  const emptyHeaders: MessageHeaders = {};
-  const exampleHeaders: MessageHeaders = [
+  const emptyHeaders: MessageHeaders[] = [];
+  const exampleHeaders: MessageHeaders[] = [
     { Action: Buffer.from('create') },
     { foo: Buffer.from('bar') },
   ];
