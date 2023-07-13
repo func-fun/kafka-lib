@@ -1,11 +1,13 @@
 import { HeaderNames, MessageHeaders } from './types';
 
 export const getMessageHeaderValue = (headers: MessageHeaders[], header: HeaderNames | string): string | null => {
-  const selected = headers.find((h) => header in h);
+  for (const headerEntry of headers) {
+    const headerValue = headerEntry[header as keyof MessageHeaders];
 
-  if (undefined === selected) {
-    return null;
+    if (undefined !== headerValue) {
+      return Buffer.from(headerValue).toString();
+    }
   }
 
-  return Buffer.from(selected[header]).toString();
+  return null;
 };
