@@ -1,5 +1,3 @@
-import { IHeaders } from 'kafkajs';
-
 export enum HeaderNames {
   'Action' = 'Action',
   'Authentication' = 'Authentication',
