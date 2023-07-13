@@ -24,5 +24,5 @@ export interface TopicAvroSettings {
   compression?: number;
 }
 
-export type MessageHeaders = { [key in HeaderNames]?: string } | IHeaders;
+export type MessageHeaders = { [key in HeaderNames]?: Buffer } | { [key: string]: Buffer };
 export type MessagePayload = Record<string, string | number | boolean | Array<unknown> | Record<string, unknown>>;

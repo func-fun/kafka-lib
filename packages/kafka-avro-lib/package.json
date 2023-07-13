@@ -1,6 +1,6 @@
 {
   "name": "@func-fun/kafka-avro-lib",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "repository": {
     "type": "git",
