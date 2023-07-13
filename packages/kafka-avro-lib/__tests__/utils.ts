@@ -2,11 +2,11 @@ import { HeaderNames, MessageHeaders } from '../types';
 import { getMessageHeaderValue } from '../utils';
 
 describe('getHeaderValue', () => {
-  const emptyHeaders: MessageHeaders = {};
-  const exampleHeaders: MessageHeaders = {
-    Action: Buffer.from('create'),
-    foo: Buffer.from('bar'),
-  };
+  const emptyHeaders: MessageHeaders[] = [];
+  const exampleHeaders: MessageHeaders[] = [
+    { Action: Buffer.from('create') },
+    { foo: Buffer.from('bar') },
+  ];
 
   it('header is missing', () => {
     expect(getMessageHeaderValue(emptyHeaders, 'bla')).toBe(null);
