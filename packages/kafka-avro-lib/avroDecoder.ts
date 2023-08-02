@@ -9,7 +9,7 @@ export class AvroDecoder {
 
   // typing disabled, because it makes sense to comply with the return type of the 3rd party lib
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async decodeMessage(encodedKey: string, encodedPayload: string): Promise<any[]> {
+  public async decodeMessage(encodedKey: string, encodedPayload: string | null | undefined): Promise<any[]> {
     if (null === encodedPayload || undefined === encodedPayload) {
       return Promise.all([this.schemaRegistry.decode(Buffer.from(encodedKey, 'base64')), null]);
     }

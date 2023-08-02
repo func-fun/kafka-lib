@@ -1,5 +1,6 @@
 # package related things
 **/node_modules
+**/reports
 .yarnrc
 .yarn/*
 !.yarn/releases
@@ -13,3 +14,5 @@
 
 # jest
 **/coverage
+# stryker temp files
+.stryker-tmp
