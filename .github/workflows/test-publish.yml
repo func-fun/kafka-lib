@@ -25,6 +25,7 @@ jobs:
         working-directory: packages/kafka-avro-lib
       - name: Run infection testing
         run: npx stryker run
+        working-directory: packages/kafka-avro-lib
   publish:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: [lint-test]
