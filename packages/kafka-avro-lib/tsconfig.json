@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "lib": ["ESNext"],
+      "moduleResolution": "node",
+      "noEmit": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "outDir": "lib",
+      "removeComments": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "strict": true,
+      "strictNullChecks": true,
+      "strictPropertyInitialization": true,
+      "target": "ES2020",
+      "types": ["jest", "node"]
+    },
+    "include": ["*.ts"],
+    "exclude": ["node_modules/**/*", ".vscode/**/*"],
+}

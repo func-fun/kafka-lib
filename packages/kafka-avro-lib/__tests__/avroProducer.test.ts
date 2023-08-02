@@ -136,5 +136,19 @@ describe('AvroProducer', () => {
     });
   });
 
-  // Add more test cases for other methods as needed
+  describe('produceSingleMessage', () => {
+    it('should throw an exception because of unknown topic', async () => {
+  
+      // Call the produceSingleMessage method and expect it to throw asynchronously
+      try {
+        await avroProducer.produceSingleMessage('key', { payload: 'value' }, 'unknown-topic');
+        fail('Expected an error to be thrown.');
+      } catch (error) {
+        expect(error).toEqual('No avro settings for topic: unknown-topic');
+      }
+    });
+  });
+  
+  
 });
+  

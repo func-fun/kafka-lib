@@ -19,13 +19,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: ''
       - run: yarn install
+      - run: npx eslint packages
       - name: Run tests for kafka-avro-lib
         run: yarn jest
         working-directory: packages/kafka-avro-lib
-      - run: npx eslint packages
+      - name: Run infection testing
+        run: yarn stryker run
   publish:
     if: ${{ github.ref == 'refs/heads/main' }}
-    needs: lint-test
+    needs: [lint-test]
     runs-on: ubuntu-latest 
     permissions: 
       contents: read
