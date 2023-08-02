@@ -20,8 +20,8 @@ jobs:
           scope: ''
       - run: yarn install
       - run: npx eslint packages
-      - name: Run tests for kafka-avro-lib
-        run: yarn jest
+      - name: Run tests with coverage for kafka-avro-lib
+        run: yarn jest --coverage
         working-directory: packages/kafka-avro-lib
       - name: Run infection testing
         run: npx stryker run
