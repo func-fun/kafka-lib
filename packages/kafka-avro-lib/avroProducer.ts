@@ -1,6 +1,6 @@
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry';
 import { CompressionTypes, Kafka, Message, Partitioners, Producer, ProducerConfig, RecordMetadata } from 'kafkajs';
-import { MessageHeaders, MessagePayload, TopicAvroSettings } from './types';
+import { MessageHeaders, MessagePayload, RegistryCacheInterface, TopicAvroSettings } from './types';
 
 export class AvroProducer {
   private kafka: Kafka;
@@ -11,16 +11,19 @@ export class AvroProducer {
     createPartitioner: Partitioners.DefaultPartitioner,
     idempotent: true,
   };
+  private registryCache: RegistryCacheInterface | null = null;
 
   constructor(
     kafka: Kafka,
     schemaRegistry: SchemaRegistry,
     topicAvroSettings: TopicAvroSettings[],
-    config: ProducerConfig | null = null
+    config: ProducerConfig | null = null,
+    registryCache: RegistryCacheInterface | null = null
   ) {
     config = config ?? this.defaultProducerConfig;
     this.kafka = kafka;
     this.producer = this.kafka.producer(config);
+    this.registryCache = registryCache;
     this.schemaRegistry = schemaRegistry;
     this.topicAvroSettings = topicAvroSettings;
   }
@@ -134,11 +137,27 @@ export class AvroProducer {
   }
 
   private async getSchemaId(subject: string, version: number | undefined): Promise<number> {
+    let registryId = null;
+
     if (undefined === version) {
       return this.schemaRegistry.getLatestSchemaId(subject);
     }
 
-    return this.schemaRegistry.getRegistryId(subject, version);
+    if (null !== this.registryCache) {
+      registryId = this.registryCache.get(subject, version);
+    }
+
+    if (null !== registryId) {
+      return registryId;
+    }
+
+    registryId = this.schemaRegistry.getRegistryId(subject, version);
+
+    if (null !== this.registryCache) {
+      this.registryCache.set(subject, version, await registryId);
+    }
+
+    return registryId;
   }
 
   private getTopicAvroSettings(topicName: string): TopicAvroSettings {
