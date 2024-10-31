@@ -13,6 +13,12 @@ export enum Action {
   'DELETE' = 'delete',
 }
 
+export interface RegistryCacheInterface {
+  set(subject: string, version: number | string, value: number): void;
+  get(subject: string, version: number | string): number | null;
+  has(subject: string, version: number | string): boolean;
+}
+
 export interface TopicAvroSettings {
   topicName: string;
   keySubject: string;
