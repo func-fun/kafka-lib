@@ -1,6 +1,6 @@
 {
   "name": "@func-fun/kafka-avro-lib",
-  "version": "1.1.0",
+  "version": "2.0.0-beta.0",
   "type": "module",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@kafkajs/confluent-schema-registry": "^3.3.0",
+    "@kafkajs/confluent-schema-registry": "^4.1.0",
     "kafkajs": "^2.2.4"
   }
 }
