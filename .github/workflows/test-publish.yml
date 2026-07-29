@@ -44,4 +44,12 @@ jobs:
       - run: yarn workspaces focus --production
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      - run: yarn workspaces foreach --exclude kafka-lib exec npm publish --access public
+      - name: publish packages
+        shell: bash
+        run: |
+          yarn workspaces foreach --exclude kafka-lib exec bash -c '
+            version=$(node -p "require(\"./package.json\").version")
+            tag=latest
+            [[ $version == *-* ]] && tag=beta
+            npm publish --access public --tag "$tag"
+          '
