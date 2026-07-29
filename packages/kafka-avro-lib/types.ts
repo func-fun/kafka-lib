@@ -1,16 +1,16 @@
 export enum HeaderNames {
-  'Action' = 'Action',
-  'Authentication' = 'Authentication',
+  Action = 'Action',
+  Authentication = 'Authentication',
   'Correlation-Id' = 'Correlation-Id',
-  'Expiry' = 'Expiry',
+  Expiry = 'Expiry',
   'Reply-To' = 'Reply-To',
-  'Type' = 'Type',
+  Type = 'Type',
 }
 
 export enum Action {
-  'CREATE' = 'create',
-  'UPDATE' = 'update',
-  'DELETE' = 'delete',
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
 }
 
 export interface RegistryCacheInterface {
